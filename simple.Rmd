@@ -1,0 +1,113 @@
+---
+title: "Learn1"
+author: "Anish mohan"
+date: "September 28, 2015"
+output: word_document
+---
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r}
+summary(cars)
+
+```
+
+You can also embed plots, for example:
+
+```{r, echo=FALSE}
+plot(cars)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+________________________________________________________________________________________________________________________________
+
+
+The has results in a title heading. Needs to be fixed
+#Hello World !
+
+Using the back tick button leads to r computing the value.
+I counted `r 1+1` red trucks on the highway
+
+Embedding Equations:
+You can embed LaTex or MathMl equations in R Markdown files
+
+The arithmetic mean is equal to $\frac{1}{n} \sum_{i=1}^{n} x_{i}$
+
+Emphasis:
+*italic*
+_italic_
+
+**bold**
+__bold__
+
+Headers:
+#Header 1
+## Header 2
+### Header 3
+
+Unordered List:
+
+* Item 1
+* Item 2
+  + Item 2a
+  + Item 2b
+* Item 3
+* Item 4
+
+
+Ordered list
+1. Item 1
+2. Item 2
+3. Item 3
+  + Item 3a
+  + Item 3b
+  
+  
+Inline R code:
+```{r}
+summary(cars$dist)
+summary(cars$speed)
+
+```
+
+There were `r nrow(cars)` cars studied
+
+links:
+
+[Google](http:/google.com)
+
+Images:
+![Volkswagen](http://www.qtgraphics.com/catalog/images/starfleetcommand_polo_01.jpg)
+
+Blockquotes
+A friend once said:
+> Its always better to give
+> than to recieve.
+
+plain code blocks
+```
+This is a plain code block
+```
+
+Inline code
+We defined `add` function to compute the sum of two numbers
+
+LateX equation
+$equation$
+
+Display Equation
+$$ equation $$
+
+Horizontal Rule/Page break
+Three or more asterisks or dashes
+hello **** world
+you ----- rock
+
+
+tables:
+First Header | Second Header
+------------ | ------------
+content cell | content cell
+content cell 2| content cell2

@@ -5,6 +5,7 @@ x<-c(88,5,12,13)
 
 ##Inserting an element in the vector
 x<-c(x[1:3], 168,x[4]) #inserts 168 between 3rd and 4th element
+
 #note this can be generalized to inserting a vector at the ith position
 y<-c(168,x[1:4]) #inserting 168 at the head of the vector
 y<-c(x[1:4],168) #inserting 168 at the tail of the vector
