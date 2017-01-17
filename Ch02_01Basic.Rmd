@@ -1,0 +1,57 @@
+---
+title: "Ch02_01Basic"
+author: "Anish Mohan"
+date: "January 17, 2017"
+output: html_document
+---
+
+
+```{r}
+# Declaring a vector
+ x <- c(1,2,3,4)
+
+# Length of Vector
+ length(x)
+
+# Adding Vectors
+ x = c(1,2,3)
+ y = c(9,8,7)
+ x+y
+```
+
+```{r}
+# ls() function gives list of all the objects (data and functions)
+ ls()
+ 
+# Remove an objects
+ rm(x)
+ 
+# Remove all objects
+ rm (list = ls())
+```
+
+
+```{r}
+#Matrix Declaration
+ x = matrix(data = c(1,2,3,4), nrow = 2, ncol = 2) #Note entries go in each row for the same column first
+ x
+ 
+# Another way
+ y = matrix(c(4,5,6,7,8,9), 2,3)
+ y
+ 
+# Entering the entries by each column first (per row)
+ z = matrix(data=c(1,2,3,4,5,6), 2, 2, byrow = TRUE)
+ z
+```
+
+```{r}
+# Some simple functions: Square Root
+ x = matrix(c(4,9,16,25),2,2)
+ sqrt(x)
+ 
+# Squaring values
+ x = matrix(c(1,2,3,4),2,2)
+ x^2
+```
+
