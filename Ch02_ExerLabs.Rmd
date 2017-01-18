@@ -1,0 +1,55 @@
+---
+title: "Ch02_ExerLabs"
+author: "Anish Mohan"
+date: "January 18, 2017"
+output: html_document
+---
+
+
+```{r, echo = FALSE}
+college = read.csv("College.csv", header = TRUE)
+
+# Look at the data
+head(college)
+
+# First column is the name of the college; Do not want R to treat this as data. 
+# Use this first column and enter them as "row.names" of the row. This implies that R has given each row a name corresponding to appropriate university
+rownames(college) = college[,1]
+head(college)
+
+#Now remove the first column
+college = college[,-1]
+head(college)
+
+# Check dimensions
+dim(college)
+
+# Check type of variables
+str(college)
+
+# Using summary to produce numerical summary of variables
+summary(college)
+
+# Using pairs to plot scatter plot of first 10 variables
+pairs(college[,1:10])
+
+# Using plot to produce boxplots of Outstate vs Private
+attach(college)
+boxplot(Private, Outstate, xlab = "Private", ylab = "Outlab", main = "Private vs Outlab")
+
+
+# Create a new qualitative variable :- Elite by binning Top 10 percent (Top10perc variable)
+# Plan: Divide universities into 2 groups based on wheter proportion of students coming from the top 10% of their high school exceeds 50%
+
+ Elite = rep("No", nrow(college)) # Create a vector of "No" with number of rows = nrow of college
+ Elite[Top10perc > 50] = "Yes" # Yes for a university that has more than 50% students who were in top 10 percentile of thier class
+ 
+ Elite = as.factor(Elite) # Treat Elite as a categorical variable
+ college = data.frame(college, Elite) #Merge the data frames
+```
+
+
+```{r, echo=FALSE}
+
+```
+
