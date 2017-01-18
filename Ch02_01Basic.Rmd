@@ -74,3 +74,10 @@ y = rnorm(100)
 plot(x,y, xlab = "X-axis",ylab = "y-axis", main="Plot of X vs Y")
 
 ```
+
+saving figures
+```{r}
+pdf("figure.pdf")
+plot(x,y, col="green")
+dev.off #Tells r that plot creation is done
+```
