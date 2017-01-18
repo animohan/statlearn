@@ -55,3 +55,22 @@ output: html_document
  x^2
 ```
 
+
+Random Values
+
+```{r}
+x = rnorm(50) # Random 50 values, with mean of 0 and std dev = 1
+plot(x)
+
+y = rnorm(50, mean=5, sd = 0.1) #50 values with mean around 5 and std dev = 0.1
+plot(y)
+```
+
+Graphics:
+
+```{r}
+x = rnorm(100)
+y = rnorm(100)
+plot(x,y, xlab = "X-axis",ylab = "y-axis", main="Plot of X vs Y")
+
+```
