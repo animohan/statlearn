@@ -209,5 +209,7 @@ Summary function
 ```{r}
 # Summary provides numerical summary of quantitative data and for qualitative data (categorical data) it just produces number of entires for each category
 summary(Auto)
-
 ```
+
+
+

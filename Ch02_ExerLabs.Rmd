@@ -5,8 +5,9 @@ date: "January 18, 2017"
 output: html_document
 ---
 
+# Question 8
 
-```{r, echo = FALSE}
+```{r}
 college = read.csv("College.csv", header = TRUE)
 
 # Look at the data
@@ -35,21 +36,68 @@ pairs(college[,1:10])
 
 # Using plot to produce boxplots of Outstate vs Private
 attach(college)
-boxplot(Private, Outstate, xlab = "Private", ylab = "Outlab", main = "Private vs Outlab")
+plot(Private, Outstate, xlab = "Private", ylab = "Outstate", main = "Private vs Outstate")
 
 
 # Create a new qualitative variable :- Elite by binning Top 10 percent (Top10perc variable)
-# Plan: Divide universities into 2 groups based on wheter proportion of students coming from the top 10% of their high school exceeds 50%
+# Plan: Divide universities into 2 groups based on wheth;er proportion of students coming from the top 10% of their high school exceeds 50%
 
  Elite = rep("No", nrow(college)) # Create a vector of "No" with number of rows = nrow of college
  Elite[Top10perc > 50] = "Yes" # Yes for a university that has more than 50% students who were in top 10 percentile of thier class
  
  Elite = as.factor(Elite) # Treat Elite as a categorical variable
  college = data.frame(college, Elite) #Merge the data frames
+ 
+ # Summary of the new Column "Elite"
+ summary(college$Elite)
+ 
+ plot(Elite, Outstate, xlab = "Elite", ylab = "Outstate", main = "Elite vs Outstate")
 ```
 
 
-```{r, echo=FALSE}
+Histograms
+
+```{r}
+par(mfrow = c(2,2))
+hist(college$Apps, breaks = 15)
+hist(college$Accept)
+hist(college$Enroll, breaks = 15, xlab = "Enrollment", ylab = "Frequency", main = "Histrogam of Enrollment")
+hist(college$Grad.Rate, breaks = 20)
 
 ```
 
+
+# Question 9
+
+```{r}
+auto = read.table("Auto.data", header = TRUE)
+
+#SUmmary of Auto
+summary(auto)
+
+# Checking if there are any is.na
+summary(is.na(auto))
+
+# Predictors that are qualitative or quantitative
+str(auto)
+# Predictors that are quantitative: mpg, Cylinders, displacement, weight, acceleration, year, origin.
+# Predictors that are qualitative : horsepower, 
+
+#Range of Quantitative 
+quant = c("mpg","cylinders","displacement","weight","acceleration","year","origin")
+for(c in quant){
+  print(c)
+  print(range(auto[c]))
+}
+
+
+#Mean and std deviation of each quantitative predictor
+lapply(auto,mean)
+lapply(auto,sd)
+
+
+#Removing 10th to 85th observation and finding mean/sd
+auto.sub = auto[-10:-85,]
+lapply(auto.sub,mean)
+lapply(auto.sub,sd)
+```
