@@ -87,7 +87,7 @@ str(auto)
 quant = c("mpg","cylinders","displacement","weight","acceleration","year","origin")
 for(c in quant){
   print(c)
-  print(range(auto[c]))
+  print(range(auto[[c]]))
 }
 
 
@@ -95,9 +95,16 @@ for(c in quant){
 lapply(auto,mean)
 lapply(auto,sd)
 
+for(c in quant){
+  print(paste0("Mean:",c,":",mean(auto[[c]])))
+  print(paste0("SD:",c,":",sd(auto[[c]])))
+  print(paste0("Range:", c,":",range(auto[[c]])))
+  print("\n]")
+}
 
 #Removing 10th to 85th observation and finding mean/sd
 auto.sub = auto[-10:-85,]
 lapply(auto.sub,mean)
 lapply(auto.sub,sd)
+lapply(auto.sub, range)
 ```
