@@ -1,0 +1,194 @@
+---
+title: "Ch03_Basic"
+author: "Anish Mohan"
+date: "January 21, 2017"
+output: html_document
+---
+
+#Linear Regression
+
+```{r}
+library(MASS)
+library(ISLR)
+library(ggplot2)
+rm(list = ls())
+
+# Work with Boston
+names(Boston)
+
+# Plot medv vs lstat
+ggplot(Boston, aes(lstat, medv)) + geom_point(color = "blue") + xlab("Lower Status Population") + ylab(" Median income")
+
+# Linear Regression: Response = medv; predictor = lstat
+lm.fit = lm(medv ~ lstat, data = Boston)
+
+lm.fit
+# Intercept = 34.55
+# Slope (lstat) = -0.95
+
+# Summary
+summary(lm.fit)
+```
+
+Summary of the linear model fit gives the following information
+1. Coefficient values
+   + Intercept = 34.55; p-value is low implying good fit
+   + Slope for lstate = -0.95 ; p-value is low     
+
+
+2. Residuals: Not sure what the min median etc.
+
+
+3. Residual Standard Error : 6.216 ; 504 Degrees of freedom
+    + RSE = $\sqrt{RSS/(n-2)}$
+    + 504 Degree freedom because: n = 506, p = 1; df = n-p-1     
+ 
+ 
+ 
+4. R-Squared: 0.5441
+   + R-Squared = $\frac{TSS-RSS}{TSS}$
+   + Proportion of the variance in output (medv) explained by variance in input(lstat)
+   + 54% of the variance is explained by the fit     
+
+
+5. Adj R-Squared: 0.5432
+   + Adj R-Squared = $1- \frac{RSS/p}{TSS/(n-p-1)}$
+   + Accounting R-Squared with predictors    
+  
+6. F-Statistic = 601.6 on 1 and 504 df
+  + F-State = $\frac{(TSS-RSS)/p}{RSS/(n-p-1)}$
+  
+```{r}
+names(lm.fit)
+
+# Collection of information
+  # Coefficients: Intercept and Slope
+  # Residual: Residual values: Actual response - predicted value
+  # fitted values: Fitted value for inputs
+
+```
+
+Confidence Intervals
+```{}
+confint(lm.fit)
+```
+
+
+Using predict Function
+```{r}
+# predict() to produce confidence intervals and prediction intervals for prediction of medv for a given value of lstate
+inp.lstat = data.frame(lstat = c(5,10,15))
+predict(lm.fit,inp.lstat, interval = "confidence" )
+# 95% confidence interval with lstat = 5 ->{29.00, 30.60}; 10 ->{24.47,25,63}; 15 -> {19.73, 20.87}
+
+predict(lm.fit,inp.lstat, interval = "prediction" )
+# 95% prediction interval with lstat = 5 ->{17.56, 42.04}; 10 ->{12.82,37.27}; 15 -> {8.07, 32.52}
+
+plot(Boston$lstat, Boston$medv, col = "blue", pch = 20) #pch = different plotting sumbols
+abline(lm.fit, col = "red", lwd = 3)
+
+#Residual fit plots the values of the x axis (lstat) and the residual error the corresponding predicted value
+plot(predict(lm.fit), residuals(lm.fit), color = "green")
+
+# Not sure what Studentized residuals are
+plot(predict(lm.fit), rstudent(lm.fit))
+
+
+# Coputing Leverage Statistics 
+plot(hatvalues(lm.fit))
+
+```
+
+
+#Multiple Linear Regression
+```{r}
+lm.fit = lm(medv ~ lstat + age, data = Boston)
+summary(lm.fit)
+```
+
+  ### Data from Summary:
+    + Intercept = 33.22
+    + Slope - lstat = -1.03
+    + Slope - age = 0.03
+
+```{r}
+# Linear Regression with all the variables
+lm.fit = lm(medv ~., data = Boston)
+summary(lm.fit)
+```
+
+  What did we learn from multiple linear regression ?
+    + With the linear fit, Lots of factors influening the median value. Specifically, parameters with low p-value
+      + crim, zn, chas, nox, rm, dis, rad, tax, ptratio, black,lstat
+
+```{r}
+# Linear Regression with all but one variable
+lm.fit = lm(medv~. - age, data = Boston)
+summary(lm.fit)
+```
+
+
+## Interaction Terms
+
+```{r}
+# Adding interaction terms in the equation
+lm.fit = lm( medv~ lstat*age, data = Boston) #Uses predictor lstat, age and their interaction
+summary(lm.fit)
+```
+
+## Non-Linear Transformation of the predictors
+
+```{r}
+lm.fit2 = lm(medv ~ lstat + I(lstat^2), data = Boston) # User lstat and lstate^2 for linear regression
+summary(lm.fit2)
+```
+
+#ANOVA:-Analysis of variance fit can be used to compare the fit between two fits
+```{r}
+anova(lm.fit, lm.fit2)
+```
+
+# Creating a cubic fit
+```{r}
+lm.fit3 = lm(medv ~ lstat + I(lstat^2) + I(lstat^3), data = Boston) # User lstat and lstate^2 for linear regression
+summary(lm.fit3)
+```
+
+# Higher order polynomial fit
+```{r}
+lm.fit5 = lm(medv ~ poly(lstat, 5), data = Boston)
+summary(lm.fit5)
+```
+
+
+# We can also try log fits
+```{r}
+lm.fit.log = lm(medv ~ log(lstat), data = Boston)
+summary(lm.fit.log)
+```
+
+# Qualitative Predictors
+New data model: Carseats
+
+```{r}
+names(Carseats)
+# ShelveLoc is a categorical variable
+
+# Just a normal fit with some interaction terms
+lm.fit = lm(Sales ~ Income: Advertising + Price:Age, data = Carseats) # or you can use
+summary(lm.fit)
+
+# Discussed Earlier: If including interaction term, include individual terms as well. User operator '*' for including both variables and their interaction terms
+lm.fit = lm(Sales ~ Income*Advertising + Price*Age, data = Carseats)
+summary(lm.fit)
+# ShelveLoc has values Good, Bad and Medium
+
+#General lm on Carseats data that contains some categorical variable like : Shelvloc
+lm.fit= lm(Sales ~ . , data = Carseats)
+summary(lm.fit)
+
+#Lets try to fit with Shelveloc and another variable
+lm.fit = lm(Sales ~ ShelveLoc + Price, data = Carseats)
+summary(lm.fit)
+
+```
