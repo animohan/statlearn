@@ -182,6 +182,7 @@ summary(lm.fit)
 lm.fit = lm(Sales ~ Income*Advertising + Price*Age, data = Carseats)
 summary(lm.fit)
 # ShelveLoc has values Good, Bad and Medium
+# In the result, you will see parameters for SheveLocMedium and ShelveLocGood. ShelveLocBad is the reference/ base paramter used
 
 #General lm on Carseats data that contains some categorical variable like : Shelvloc
 lm.fit= lm(Sales ~ . , data = Carseats)
